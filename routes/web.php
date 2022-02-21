@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 Route::middleware('auth')
@@ -27,4 +23,10 @@ Route::middleware('auth')
         Route::get('/', 'HomeController@index')
         ->name('home');
     });
+
+// Va Alla Fine perche Laravel leggendo questo capisce: "tutte le altre routes vanno a guests.home", metterlo per 
+// primo significherebbe non leggere le altre routes e reindirizzare sempre a questa 
+Route::get('{any?}', function() {
+    return view('guests.home');
+})->where('any', '.*');
 
