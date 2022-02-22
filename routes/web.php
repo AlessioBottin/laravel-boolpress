@@ -22,7 +22,10 @@ Route::middleware('auth')
     ->group( function () {
         Route::get('/', 'HomeController@index')
         ->name('home');
+        Route::resource('posts', 'PostController');
     });
+
+
 
 // Va Alla Fine perche Laravel leggendo questo capisce: "tutte le altre routes vanno a guests.home", metterlo per 
 // primo significherebbe non leggere le altre routes e reindirizzare sempre a questa 
