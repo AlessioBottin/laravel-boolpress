@@ -9,13 +9,16 @@
 
                 @foreach ($posts as $post)
 
-                    {{-- Single Card  --}}
-                    <div class="card">
-                        {{-- <img src="..." class="card-img-top" alt="..."> --}}
-                        <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <div class="col">
+                        {{-- Single Card  --}}
+                        <div class="card mt-3">
+                            {{-- <img src="..." class="card-img-top" alt="..."> --}}
+                            <div class="card-body">
+                            <h5 class="card-title">{{ $post->title }}</h5>
+                            <p class="card-text mb-2">Slug: {{ Str::substr($post->slug, 0, 70) }}</p>
+                            <p class="card-text">{{ $post->content }}</p>
+                            <a href="{{ route('admin.posts.show', ['post' => $post->id]) }}" class="btn btn-primary">Visualizza post</a>
+                            </div>
                         </div>
                     </div>
 
