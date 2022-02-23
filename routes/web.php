@@ -1,5 +1,6 @@
 <?php
 
+use App\Category;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,8 @@ Route::middleware('auth')
         Route::get('/', 'HomeController@index')
         ->name('home');
         Route::resource('posts', 'PostController');
+        Route::get('/categories', 'CategoryController@index')->name('categories');
+        Route::get('/categories/{slug}', 'CategoryController@show')->name('category_posts');
     });
 
 
