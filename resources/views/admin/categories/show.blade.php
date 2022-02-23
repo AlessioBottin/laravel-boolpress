@@ -7,7 +7,7 @@
         <div class="posts">
             <div class="row row-cols-4">
 
-                @foreach ($posts as $post)
+                @forelse ($posts as $post)
 
                     <div class="col">
                         {{-- Single Card  --}}
@@ -22,7 +22,9 @@
                         </div>
                     </div>
 
-                @endforeach
+                @empty 
+                    <div>Nessun Risultato</div>
+                @endforelse
             </div>
         </div>
 @endsection
