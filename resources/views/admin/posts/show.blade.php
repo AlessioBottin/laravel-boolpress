@@ -8,6 +8,8 @@
 
         <div class="mb-3">Slug: {{ $post->slug }}</div>
 
+        <div class="mb-3">Categoria: {{ $post->category_id ?  $post->category->name : 'Nessuna' }}</div>
+
         <p><strong>Content:</strong> {{ $post->content }}</p>
 
         <a href="{{ route('admin.posts.edit', ['post' => $post->id]) }}" class="btn btn-primary">Modifica Post</a>
