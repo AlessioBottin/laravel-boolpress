@@ -12,6 +12,11 @@ class Post extends Model
         'content'
     ];
 
+    protected function categories() {
+        return $this->belongsTo('App\Category');
+    }
+
+    // Static Functions 
     public static function generateSlug($title) {
         $slug = Str::slug($title);
         $original_slug = $slug;
