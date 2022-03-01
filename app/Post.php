@@ -6,15 +6,21 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
-{
+{   
+    // Fillables
     public $fillable = [
         'title',
         'content',
         'category_id'
     ];
 
+    // Relations
     protected function category() {
         return $this->belongsTo('App\Category');
+    }
+
+    public function posts() {
+        return $this->belongsToMany('App\Tag');
     }
 
     // Static Functions 
