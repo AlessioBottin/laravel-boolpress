@@ -39,6 +39,8 @@
     
                 @foreach ($tags as $tag)
                     <div class="form-check">
+                        {{-- Il name='tags[]' serve a raccogliere le value di ogni input selezionata
+                        (in questo caso l'id del tag) nel form dentro l' array tags  --}}
                         <input {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }} class="form-check-input" type="checkbox" value="{{ $tag->id }}" id="tag-{{ $tag->id }}" name="tags[]">
                         <label class="form-check-label" for="tag-{{ $tag->id }}">
                         {{ $tag->name }}

@@ -52,6 +52,13 @@ class PostController extends Controller
         $new_post->slug = Post::generateSlug($new_post->title);
         $new_post->save();
 
+        // Se l' array tags e' non null, ed un array e' non null anche se e' vuoto,
+        // Sincronizza la tabella pivot con gli id dentro l'array tags, se vengono cancellati gli id dei tag allora 
+        // la relazione tra tag e post viene cancellata 
+        if(isset($form_data['tags'])) {
+            $new_post->optionals()->sync($form_data['tags']);
+        }
+
         return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
 
     }
@@ -63,7 +70,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post)
-    {   
+    {    
         return view('admin.posts.show', compact('post'));
     }
 
