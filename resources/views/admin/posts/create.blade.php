@@ -6,6 +6,11 @@
 
         @include('components.error-log')
 
+        {{-- In alternativa al monoblocco puoi usare questo per far apparire il messaggio di errore sotto la input  --}}
+        {{-- @error('id_della_input')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror --}}
+
         <form action="{{ route('admin.posts.store') }}" method="post">
             @csrf
             @method('POST')
@@ -41,6 +46,7 @@
                     <div class="form-check">
                         {{-- Il name='tags[]' serve a raccogliere le value di ogni input selezionata
                         (in questo caso l'id del tag) nel form dentro l' array tags  --}}
+                        {{-- Si puo fare anche con il contain al posto di in array  --}}
                         <input {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }} class="form-check-input" type="checkbox" value="{{ $tag->id }}" id="tag-{{ $tag->id }}" name="tags[]">
                         <label class="form-check-label" for="tag-{{ $tag->id }}">
                         {{ $tag->name }}

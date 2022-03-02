@@ -18,7 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(12);
 
         return view('admin.posts.index', compact('posts'));
     }
@@ -56,8 +56,9 @@ class PostController extends Controller
         // Sincronizza la tabella pivot con gli id dentro l'array tags, se vengono cancellati gli id dei tag allora 
         // la relazione tra tag e post viene cancellata 
         if(isset($form_data['tags'])) {
-            $new_post->optionals()->sync($form_data['tags']);
+            $new_post->tags()->sync($form_data['tags']);
         }
+        // !TODO controlla se qui ci va l' else perche' se non selezioni niente nel form viene inviata un chiave tags che e' null 
 
         return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
 
@@ -82,8 +83,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {   
+        $tags = Tag::all();
         $categories = Category::all();
-        return view('admin.posts.edit', compact('post', 'categories'));
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -95,15 +97,21 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        $updated_post = $request->all();
+        $updated_post_data = $request->all();
         
         $request->validate($this->getValidationRules());
 
-        if($updated_post['title'] != $post->title) {
-            $post->slug = Post::generateSlug($updated_post['title']);
+        if($updated_post_data['title'] != $post->title) {
+            $post->slug = Post::generateSlug($updated_post_data['title']);
         }
 
-        $post->update($updated_post);
+        $post->update($updated_post_data);
+
+        if(isset($updated_post_data['tags'])) {
+            $post->tags()->sync($updated_post_data['tags']);
+        } else {
+            $post->tags()->sync([]);
+        }
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
 
@@ -114,8 +122,10 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post)
-    {
+    {   
+        $post->tags()->sync([]);
         $post->delete();
+        
         return redirect()->route('admin.posts.index');
     }
 
