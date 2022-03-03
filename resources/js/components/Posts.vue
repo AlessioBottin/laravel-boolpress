@@ -36,7 +36,7 @@
 
 <script>
 export default {
-    name: 'WorkInProgress',
+    name: 'Posts',
     data: function () {
         return {
             posts: [],
