@@ -8,7 +8,7 @@
             <div v-if="post.tags.length > 0">    
                 <router-link 
                     class="nav-link badge badge-pill badge-primary mr-2" 
-                    :to="''"  
+                    :to="{ name: 'tag-details', params: { slug: tag.slug } }"  
                     v-for="tag in post.tags" 
                     :key="tag.id"
                 >

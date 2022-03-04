@@ -8,6 +8,8 @@ import Blog from './Pages/Blog.vue';
 import About from './Pages/About.vue';
 import NotFound from './Pages/NotFound.vue';
 import PostDetails from './Pages/PostDetails.vue';
+import TagDetails from './Pages/TagDetails.vue';
+
 
 
 
@@ -34,7 +36,11 @@ const router = new VueRouter({
             name: "about",
             component: About
         },
-        
+        {
+            path: "/tags/:slug",
+            name: "tag-details",
+            component: TagDetails
+        },
         {
             path: "/*",
             name: "not-found",
