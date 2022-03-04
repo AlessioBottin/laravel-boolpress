@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
 
+
 class PostController extends Controller
 {
     public function index() {
@@ -23,12 +24,12 @@ class PostController extends Controller
         if ($post) {
             return response()->json([
                 'success' => true,
-                'posts' => $post
+                'results' => $post
             ]);
         } else {
             return response()->json([
                 'success' => false,
-                'posts' => []
+                'results' => []
             ]);
         }
     }

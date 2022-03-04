@@ -2013,13 +2013,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PostDetails',
   data: function data() {
-    return {};
+    return {
+      post: false
+    };
   },
-  methods: {},
-  created: function created() {}
+  methods: {
+    getPost: function getPost() {
+      var _this = this;
+
+      axios.get('/api/posts/' + this.$route.params.slug).then(function (response) {
+        if (response.data.success) {
+          _this.post = response.data.results;
+        } else {
+          _this.$router.push({
+            name: 'not-found'
+          });
+        }
+      });
+    }
+  },
+  created: function created() {
+    this.getPost();
+  }
 });
 
 /***/ }),
@@ -2804,20 +2837,41 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("section", [
+    _c("div", { staticClass: "container" }, [
+      _c("h1", [_vm._v(_vm._s(_vm.post.title))]),
+      _vm._v(" "),
+      _vm.post.category
+        ? _c("div", [_vm._v("Categoria: " + _vm._s(_vm.post.category.name))])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.post.tags.length > 0
+        ? _c(
+            "div",
+            _vm._l(_vm.post.tags, function (tag) {
+              return _c(
+                "router-link",
+                {
+                  key: tag.id,
+                  staticClass: "nav-link badge badge-pill badge-primary mr-2",
+                  attrs: { to: "" },
+                },
+                [
+                  _vm._v(
+                    "\n                " + _vm._s(tag.name) + "\n            "
+                  ),
+                ]
+              )
+            }),
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c("p", [_vm._v(_vm._s(_vm.post.content))]),
+    ]),
+  ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("section", [
-      _c("div", { staticClass: "container" }, [
-        _c("h1", [_vm._v("Dettagli post")]),
-      ]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -2936,19 +2990,31 @@ var render = function () {
       { staticClass: "row row-cols-4" },
       _vm._l(_vm.posts, function (post) {
         return _c("div", { key: post.id, staticClass: "card mb-3 " }, [
-          _c("div", { staticClass: "card-body" }, [
-            _c("h5", { staticClass: "card-title" }, [
-              _vm._v(_vm._s(post.title)),
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "card-text" }, [
-              _vm._v(_vm._s(_vm.getTrimmedText(post.content, 50))),
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "btn btn-primary", attrs: { href: "#" } }, [
-              _vm._v("Go somewhere"),
-            ]),
-          ]),
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
+              _c("h5", { staticClass: "card-title" }, [
+                _vm._v(_vm._s(post.title)),
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "card-text" }, [
+                _vm._v(_vm._s(_vm.getTrimmedText(post.content, 50))),
+              ]),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass: "nav-link",
+                  attrs: {
+                    to: { name: "post-details", params: { slug: post.slug } },
+                  },
+                },
+                [_vm._v("Leggi articolo")]
+              ),
+            ],
+            1
+          ),
         ])
       }),
       0

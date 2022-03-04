@@ -15,7 +15,7 @@ class Post extends Model
     ];
 
     // Relations
-    protected function category() {
+    public function category() {
         return $this->belongsTo('App\Category');
     }
 
