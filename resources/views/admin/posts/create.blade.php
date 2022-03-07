@@ -11,7 +11,7 @@
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror --}}
 
-        <form action="{{ route('admin.posts.store') }}" method="post">
+        <form action="{{ route('admin.posts.store') }}" method="post"  enctype="multipart/form-data">
             @csrf
             @method('POST')
 
@@ -53,6 +53,12 @@
                         </label>
                     </div>                
                 @endforeach
+            </div>
+
+            {{-- Cover  --}}
+            <div class="mb-3">
+                <label for="image" class="form-label">Immagine</label>
+                <input type="file" class="form-control" id="image" name="image">
             </div>
                
             <button type="submit" class="btn btn-primary">Crea</button>

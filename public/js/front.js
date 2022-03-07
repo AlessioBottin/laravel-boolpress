@@ -2032,7 +2032,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'PostDetails',
   data: function data() {
     return {
-      post: false
+      post: {}
     };
   },
   methods: {
@@ -2904,7 +2904,7 @@ var render = function () {
         ? _c("div", [_vm._v("Categoria: " + _vm._s(_vm.post.category.name))])
         : _vm._e(),
       _vm._v(" "),
-      _vm.post.tags.length > 0
+      _vm.post.tags && _vm.post.tags.length > 0
         ? _c(
             "div",
             _vm._l(_vm.post.tags, function (tag) {

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Tag;
+use Illuminate\Support\Facades\Storage;
 
 
 class PostController extends Controller
@@ -50,6 +51,12 @@ class PostController extends Controller
         $new_post->fill($form_data);
 
         $new_post->slug = Post::generateSlug($new_post->title);
+
+        if (isset($form_data['image'])) {
+            $img_src = Storage::put('post_covers', $form_data['image']);
+
+            $new_post->cover = $img_src;
+        }
         $new_post->save();
 
         // Se l' array tags e' non null, ed un array e' non null anche se e' vuoto,

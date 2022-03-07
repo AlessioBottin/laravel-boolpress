@@ -5,7 +5,7 @@
 
             <div v-if="post.category">Categoria: {{ post.category.name }}</div>
 
-            <div v-if="post.tags.length > 0">    
+            <div v-if="post.tags && post.tags.length > 0">    
                 <router-link 
                     class="nav-link badge badge-pill badge-primary mr-2" 
                     :to="{ name: 'tag-details', params: { slug: tag.slug } }"  
@@ -26,7 +26,7 @@ export default {
     name: 'PostDetails',
     data: function() {
         return {
-            post: false
+            post: {}
         }
     },
     methods: {
