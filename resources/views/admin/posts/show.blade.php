@@ -20,6 +20,12 @@
              
 
         <p><strong>Content:</strong> {{ $post->content }}</p>
+        
+        @if ($post->cover)
+            <div class="mb-3">
+                <img src="{{ asset('storage/' . $post->cover) }}" alt="post cover">
+            </div>
+        @endif
 
         <a href="{{ route('admin.posts.edit', ['post' => $post->id]) }}" class="btn btn-primary">Modifica Post</a>
 

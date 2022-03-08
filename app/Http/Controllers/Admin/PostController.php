@@ -125,6 +125,7 @@ class PostController extends Controller
 
             // Salvo nella colonna cover il path al nuovo file
             $updated_post_data['cover'] = $img_path;
+            // !Ricorda Aggiungi il fillable nel model che qui fai un mass assignment poi non funziona.
         }
 
         $post->update($updated_post_data);
@@ -146,6 +147,9 @@ class PostController extends Controller
     public function destroy(Post $post)
     {   
         $post->tags()->sync([]);
+        if ($post->cover) {
+            Storage::delete($post->cover);
+        }
         $post->delete();
         
         return redirect()->route('admin.posts.index');

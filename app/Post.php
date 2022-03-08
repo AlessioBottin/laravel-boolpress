@@ -11,7 +11,8 @@ class Post extends Model
     public $fillable = [
         'title',
         'content',
-        'category_id'
+        'category_id',
+        'cover'
     ];
 
     // Relations
