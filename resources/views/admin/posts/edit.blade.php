@@ -6,7 +6,7 @@
 
         @include('components.error-log')
 
-        <form action="{{ route('admin.posts.update', ['post' => $post->id]) }}" method="post">
+        <form action="{{ route('admin.posts.update', ['post' => $post->id]) }}" method="post"  enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -53,6 +53,16 @@
                         </label>
                     </div>                
                 @endforeach
+            </div>
+
+            
+            {{-- Cover  --}}
+            <div class="mb-3">
+                <label for="image" class="form-label">Immagine</label>
+                <input type="file" class="form-control" id="image" name="image">
+                @if ($post->cover)
+                    <img src="{{ asset('storage/' . $post->cover) }}" alt="post cover">
+                @endif
             </div>
                
             <button type="submit" class="btn btn-primary">Modifica</button>

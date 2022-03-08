@@ -113,6 +113,20 @@ class PostController extends Controller
             $post->slug = Post::generateSlug($updated_post_data['title']);
         }
 
+        // Se viene messa una nuova immagine 
+        if($updated_post_data['image']) {
+            // Cancello il file vecchio
+            if($post->cover) {
+                Storage::delete($post->cover);
+            }
+
+            // Faccio l'upload il nuovo file
+            $img_path = Storage::put('post_covers', $updated_post_data['image']);
+
+            // Salvo nella colonna cover il path al nuovo file
+            $updated_post_data['cover'] = $img_path;
+        }
+
         $post->update($updated_post_data);
 
         if(isset($updated_post_data['tags'])) {
@@ -142,7 +156,8 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'content' => 'required|max:60000',
             'category_id' => 'nullable|exists:categories,id',
-            'tags' => 'exists:tags,id|nullable'
+            'tags' => 'exists:tags,id|nullable',
+            'image' => 'image|max:512|nullable'
         ];
     }
 }
