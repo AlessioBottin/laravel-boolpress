@@ -9,8 +9,7 @@ import About from './Pages/About.vue';
 import NotFound from './Pages/NotFound.vue';
 import PostDetails from './Pages/PostDetails.vue';
 import TagDetails from './Pages/TagDetails.vue';
-
-
+import ContactUs from './Pages/ContactUs.vue';
 
 
 const router = new VueRouter({
@@ -40,6 +39,11 @@ const router = new VueRouter({
             path: "/tags/:slug",
             name: "tag-details",
             component: TagDetails
+        },
+        {
+            path: "/contact-us",
+            name: "contact-us",
+            component: ContactUs
         },
         {
             path: "/*",

@@ -6,7 +6,7 @@
         <div class="row row-cols-4">
             <!-- Single Post  -->
             <div class="card mb-3 " v-for="post in posts" :key="post.id">
-                <!-- <img src="..." class="card-img-top" alt="..."> -->
+                <img v-if="post.cover" :src="post.cover" class="card-img-top" alt="post cover">
                 <div class="card-body">
                     <h5 class="card-title">{{ post.title }}</h5>
                     <p class="card-text">{{ getTrimmedText(post.content, 50) }}</p>
